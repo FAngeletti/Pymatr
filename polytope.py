@@ -9,7 +9,7 @@ from Algo.byPieces import *
 
 
 sym.init_printing(use_unicode=True)
-X= sym.symbols('x')
+X= sym.symbols('s')
 
 def vec(arr):
 	return Matrix(arr)
@@ -184,7 +184,7 @@ class fullPolytope:
 				verts=[ self.vec(v)-self.vec(v0) for v in allV ]
 				m=Matrix( [v.T for v in verts] )
 				svol=m.berkowitz_det()/ fact(d)
-				sign = svol.subs('x',loc)
+				sign = svol.subs(X,loc)
 				sign=sign/abs(sign)
 				return sign*svol
 			else:
@@ -373,6 +373,7 @@ def VolIntersectionSimplex( normal, offset ):
 	vols.extend( [volumeLoc(loc) for loc in locs])
 	vols.append(0)
 	bpP = byPieces (inters, vols )
+	bpP.normalize()
 	return bpP
 
 

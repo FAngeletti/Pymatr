@@ -32,7 +32,7 @@ def simplexAlea(d):
 		return a
 	return rand	
 
-def MarkovianIntegral(sampler, fun, eps=1e-3, n0=1000 ):
+def MarkovianIntegral(sampler, fun, eps=5e-2, n0=1000 ):
 	''' Basic markovian sampler'''
 	n=n0
 	s1=sum(( fun(sampler()) for x in range(n)  ))/n
