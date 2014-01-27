@@ -150,7 +150,8 @@ def sysMats(fG,fT, dims, lambdas, Egen, nQ, Qgen ):
 		block= stoMat(db, diagG, lb, Egen)	
 		blit(perm,b,b,dims,cdims,block,E)
 		for q in range(nQ):
-			qblock=transMat(db,db,diagG, Qgen) 
+			qFactor=Qgen()
+			qblock=transMat(db,db,diagG, lambda :  qFactor*Egen() ) 
 			blit(perm,b,b,dims,cdims,qblock,Qs[q] ) 
 	for (k,l) in  g:
 		dk,dl=dims[k], dims[l] 

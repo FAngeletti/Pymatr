@@ -73,22 +73,25 @@ def stationaryState( eigentriple ):
 	''' Compute the stationary state associated to the eigentriple of a block '''
 	left=eigentriple[1]
 	right=eigentriple[2]
-	st =  left* right.T
+	norm= left.dot(right) 
+	st =  (right* left.T) / norm
 	return st
 
 def stationaryTransitions( eigentriple, block ):
 	''' stationary transition rate inside a block '''
+	L= eigentriple[0]
 	left=eigentriple[1]
 	right=eigentriple[2]
+	norm= left.dot(right)
 #	print("block : {} \n, l*r {} \n".format(block,left*right.T ))
-	st = ewp( block, left* right.T)
+	st = ewp( block, (left* right.T)/ (norm * L) )
 	return st
 
 
 def reducedStatistic(P, dominants, blocks, dims, eigentriples):
 	''' Compute reduced statistics '''
 	r=len(dominants)
-	Pr=zeros(r,r)
+	Pr=[0] * r
 	subSt= subBlocks(P,dims)
 	for (i, pos) in zip(range(r), dominants):
 		b=blocks[pos]

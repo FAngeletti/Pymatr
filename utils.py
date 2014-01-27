@@ -1,5 +1,7 @@
 
 import sympy as sym
+import numpy as num
+
 from sympy.matrices import *
 
 def ewp(A,B):
@@ -18,6 +20,13 @@ def MId(d):
 	m= eye(d)
 	return m
 
+def numerical(M, factor=1 ):
+	sh=M.shape
+	N=num.zeros((sh[0], sh[1]))
+	for i in range(sh[0]):
+		for j in range(sh[1]):
+			N[i,j]= (factor*M[i,j]).evalf()
+	return np.matrix(N)
 
 
 import math
@@ -44,11 +53,12 @@ def MarkovianIntegral(sampler, fun, eps=5e-2, n0=1000 ):
 		s2=sum(( fun(sampler()) for x in range(n) ))/n
 	return (s1+s2)/2
 
-def gaussian(x, sigma2s):
-	''' Gaussian distribution '''
+def gaussian(xs, sigma2s):
+	''' Gaussian distribution '''	
+	xrs = [np.float64(x) for x in xs]
 	def f(alphas):
 		sigma2= np.float64( sum(alphas * sigma2s) )
-		core= -np.power(x,2)/(2*sigma2)
+		core= -np.power(xrs,2)/(2*sigma2)
 		norm= math.sqrt(2*math.pi*sigma2)  
 		return np.exp(core) / norm 
 	return f
