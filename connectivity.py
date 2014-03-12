@@ -4,6 +4,7 @@
 
 '''
 
+import Algo.printing as pr
 from Algo.utils import *
 def computeConn(E):
 	''' Compute the connection matrix Conn[i,j]>0 iff there is path from i to j in the graph
@@ -18,22 +19,14 @@ associated to E'''
 
 def shape(M):
 	"""Generate a latex representation of the shape of a  matrix """
-	def coeff(i,j):
-		if M[i,j]>0:
+	def sign(x):
+		if x>0:
 			return "+"
-		elif M[i,j]<0:
+		if x<0:
 			return "-"
 		else:
 			return "0"
-	d=M.shape[0]
-	s=r"\begin{pmatrix}"
-	for i in range(d):
-		s+=coeff(i,0)
-		for j in range(1,d):
-			s+= ("&"+ coeff(i,j))
-		s+=r"\\"
-	s+=r"\end{pmatrix}"
-	return s			
+	return pr.mat(M,pr=sign)	
 
 def preorder(Conn):
 	''' Compute the preorder (i connected to j) on the graph G(E) using the connection matrix Conn '''
@@ -42,25 +35,6 @@ def preorder(Conn):
 	return prec
 
 
-
-def print_set(pr, s):
-	res=r"\{"
-	it=iter(s)
-	try: 
-		res+=pr(next(it))
-	except StopIteration:
-		res+="\}"
-		return res
-	for x in it:
-		res+="," + pr(x)	
-	res+=r"\}"
-	return res
-
-def print_nset(n, s):
-	if n==1:
-		return print_set(str,s)
-	else:
-		return print_set( lambda s : print_nset(n-1, s) , s)
 
 
 
