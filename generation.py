@@ -102,7 +102,7 @@ def transMat(n, m , edges, gen):
 import sympy as sp
 def rationalE():
 	""" Generate a random rational for the structure matrix """
-	num = 1+ randrange(9)
+	num = 1+ randrange(3)
 	#denom = 1+randrange(1)
 	return sp.Rational(num)
 
