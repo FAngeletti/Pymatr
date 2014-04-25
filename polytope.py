@@ -12,10 +12,12 @@ sym.init_printing(use_unicode=True)
 X= sym.symbols('s')
 
 def vec(arr):
+''' Define a vector from an iterable '''
 	return Matrix(arr)
 
 
 def canon(d):
+''' Canonical base in dimension d '''
 	def base(i):
 		v=vec([0]*d)
 		v[i]=1
@@ -23,15 +25,18 @@ def canon(d):
 	return base
 
 def zero(d):
+''' Null vector '''
 	return vec([0]*d)
 
 
 
 def choose(s):
+''' Choose an element of an iterable '''
 	for x in s:
 		return x
 
 def fact(n):
+''' Factorial function '''
 	p=1
 	for k in range(1,n+1):
 		p*=k
@@ -39,16 +44,20 @@ def fact(n):
 
 
 class Hyperplane:
+''' Hyperplane class '''
+
 	def __init__(self, v, pos):
 		norm= sym.sqrt(v.dot(v))
 		self.normal=v/norm
 		self.pos=pos/norm
 
 	def relPos(self,v):
+	''' Distance to the hyperplane of the point v '''
 		r=self.normal.dot(v) - self.pos
 		return r
 
 	def immerge(self,v):
+	''' Project the vector v into the hyperplane and return the corresponding d-1 dimensional vector''' 
 		nzds = [i for (i,val) in enumerate(self.normal) if val!=0 ]
 		nzd= nzds[0]
 		w=[]
@@ -59,6 +68,7 @@ class Hyperplane:
 				
 
 	def intersection(self, v, w):
+	''' Compute the intersection of the hyperplane and the line supported by [v,w] '''
 		hv = self.relPos(v)
 		hw= self.relPos(w)
 		t= hw/(hw-hv)
@@ -67,7 +77,9 @@ class Hyperplane:
 
 	def __str__(self):
 		return "Hyperplane <{}, x> = {}\n".format(self.normal, self.pos)
+
 	def __contains__(self,v):
+	''' Is the vector v inside the hyperplane '''
 		return( self.relPos(v) < 0 )
 
 
@@ -112,6 +124,7 @@ class LocalHyperplane:
 		return( self.relPosLoc(v) < 0 )	
 
 class Face:
+''' Define a face as a collection of interior faces and exterior faces ''' 
 	def __init__(self):
 		self.childs=[]
 		self.parents=[]
@@ -131,6 +144,7 @@ class Face:
 
 
 class fullPolytope:
+''' A full polytope is composed of a collection of vertices and its full simplex chain'''
 	def __init__(self,dim):
 		self.vertices={}
 		self.lattice=[]
@@ -139,9 +153,12 @@ class fullPolytope:
 
 
 	def genVertexId(self):
+	''' Generate a new vertex id '''
 		self.VertexId+=1
 		return (self.VertexId)
+
 	def addVertex(self,v):
+	''' Add a new vertex of position v '''
 		key=self.genVertexId()
 		self.vertices[key]=v
 		return key
@@ -160,6 +177,7 @@ class fullPolytope:
 		return "".join(st)
 
 	def copy(self):
+	''' Copy the full polytope '''
 		P=fullPolytope(self.dim)
 		for v in self.vertices.values():
 			P.addVertex(v)
@@ -169,10 +187,12 @@ class fullPolytope:
 
 
 	def body(self):
+	''' Return the simplicial chain '''
 		[(v,B)]=self.lattice[self.dim].items()
 		return (v,B)
 
 	def vec(self,vId):
+	''' Return the position of the vertice named vId '''
 		return self.vertices[vId]
 
 	def volumeX(self,loc):
@@ -199,36 +219,39 @@ class fullPolytope:
 		return tessel(frozenset({}),self.dim, v,B) 
 			
 	def intersection( self, H):
-		I=fullPolytope(self.dim-1)
-		
-		edges= self.lattice[1]
-		collision={}
+		I=fullPolytope(self.dim-1) # Start with an empty polytope	
+		edges= self.lattice[1] # consider the edges at level 1
+		collision={} # there was no collision until now
 		for (s,f) in edges.items():
-			vw= [ v for v  in s]
-			v,w = self.vec(vw[0]),  self.vec(vw[1]) 
-			if ( (v in H) and (w not in H ))  or ( ( w in H) and (v not in H) ) :
-					n= H.intersection(v,w)
-					key=I.addVertex(n)
-					collision[s]= frozenset({key})
-		nlattice={ s:Face() for s in collision.values() }
+			vw= [ v for v  in s] # vw is the list of vertices of the face f
+			v,w = self.vec(vw[0]),  self.vec(vw[1])  # [v,w] is an edge of the polytope self
+			if ( (v in H) and (w not in H ))  or ( ( w in H) and (v not in H) ) : # if v and w are on opposite side of H
+					n= H.intersection(v,w) # n is the intersection point of H and [v,w]
+					key=I.addVertex(n) # We have found a vertex of I
+					collision[s]= frozenset({key}) # There was also obviously a collision between the edge and H 
+		# The lattice of I at the vertice is the set of vertices we have found
+		nlattice={ s:Face() for s in collision.values() } 
 		I.lattice.append(nlattice)
-		for level in self.lattice[2:]:
+		for level in self.lattice[2:]: # We construct iteratively the next lattice level
 			sublattice={}
 			ncollision={}
-			for (s,f) in level.items():
+			for (s,f) in level.items(): #Each face of Self at level d may generate a face of I at level d-1
 				nf=Face()
 				verts=frozenset({})
-				for subfaces in f.childs:
-					if subfaces in collision.keys():
-						colSubF= collision[subfaces]
-						nf.childs.append(colSubF)
+				for subfaces in f.childs: 
+				# We look if one of the subface of f intersect with H 
+					if subfaces in collision.keys(): 
+						# if that is the case, f also intersects with H and the intersected face contains the intersected subface
+						colSubF= collision[subfaces] 
+						nf.childs.append(colSubF) 
+						# We collect the set of the vertices of the new face nf
 						verts=verts.union(colSubF)
-				if len(verts) > 0 :
-					ncollision[s]=verts
-					sublattice[verts]=nf
+				if len(verts) > 0 : # If the new face contains at least one vertice (i.e. d)
+					ncollision[s]=verts # Then the intersetion between H and f is non-empty
+					sublattice[verts]=nf # And nf is a face of lattice at level level.
 			I.lattice.append(sublattice)
 			collision=ncollision
-		I.repairParents()
+		I.repairParents() # Until now we have neglected to add back the link between child and parents.
 		return I
 					
 
