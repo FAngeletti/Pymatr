@@ -101,9 +101,10 @@ def plot(bpF, plot=plt.plot ,  n=20):
 		offs+= n 
 	plot(xs, ys)
 	ym = max(ys)
-	for sep in bpF.seps:
-		plt.plot( [sep, sep], [-0.05, ym],  'r--')
-	plt.xticks( bpF.seps,  bpF.seps ) 
+	xst = [sp.N(x) for x in bpF.seps ]
+	xstn = [str(x) for x in bpF.seps ]
+	plt.xticks( xst,xstn ) 
+	plt.grid()
 	
 	
 	

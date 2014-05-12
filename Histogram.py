@@ -13,25 +13,35 @@ class T:
 		return self.concrete.density(self.n)
 
 
-
-
 class Leaf:
-	def __init__(self, l, lims,  nlim=100):
+	def __init__(self, l, lims,  nlim_d=50):
 		self.els=l
 		self.lims=lims
+		(inf,sup) = lims
 		self.n=len(l)
-		self.nlimit=nlim
+		self.nlimit_d=nlim_d
+		self.nlim_m = max(nlim_d/(sup-inf),nlim_d)
 		
 	def add(self,x):
 		self.n+=1
 		self.els.append(x)
-		if self.n < self.nlimit:
+		if self.n < self.nlim_m:
 			return self
 		else:
 			return self.split()
 
 	def split(self):
-		return Node(self.els, self.lims,  self.nlimit* (0.55 +  self.nlimit/200) )
+		s=sorted(self.els)
+		half=len(s)//2
+		left, right  = s[:half], s[half:]
+		mid = ( left[-1] + right[0] ) /2
+		shortest=min(mid-left[0], right[-1] - mid)
+		nlimit= self.nlimit_d/shortest
+		self.nlim_m=max(nlimit,self.nlimit_d)
+		if self.n>self.nlim_m:
+			return Node( left, right, mid, self.lims, 1.5*self.nlimit_d)
+		else: 
+			return self
 
 	def density(self,n ):
 		(inf,sup) = self.lims
@@ -41,19 +51,19 @@ class Leaf:
 			sup = max(self.els)
 		return [ (inf, sup , self.n / ( (sup-inf)*  n)) ]
 
+	def width(self):
+		inf, sup = lim
+		return (sup-inf)
+
 
 class Node:
-	def __init__(self, l , lims, nlim ) :
-		s=sorted(l)
-		half=len(s)//2
-		left, right  = s[:half], s[half:]
-		mid = ( left[-1] + right[0] ) /2
+	def __init__(self, left, right , mid, lims, nlim_d ) :
 		self.lims = lims
 		inf, sup = self.lims 
-		self.left = Leaf(left, (inf,mid), nlim=nlim ) 
-		self.right = Leaf(right, (mid,sup), nlim=nlim )
+		self.left = Leaf(left, (inf,mid), nlim_d=nlim_d ) 
+		self.right = Leaf(right, (mid,sup), nlim_d=nlim_d )
 		self.mid = mid 
-		self.n=len(l)
+		self.n=len(left)+len(right)
 	def add(self,x):
 		self.n+=1
 		if x > self.mid:
