@@ -14,13 +14,14 @@ class T:
 
 
 class Leaf:
-	def __init__(self, l, lims,  nlim_d=50):
+	def __init__(self, l, lims,  nlim_d=5, nlim_b=5):
 		self.els=l
 		self.lims=lims
 		(inf,sup) = lims
 		self.n=len(l)
 		self.nlimit_d=nlim_d
-		self.nlim_m = max(nlim_d/(sup-inf),nlim_d)
+		self.nlim_b=nlim_b
+		self.nlim_m = max(nlim_d/(sup-inf), nlim_b)
 		
 	def add(self,x):
 		self.n+=1
@@ -37,9 +38,9 @@ class Leaf:
 		mid = ( left[-1] + right[0] ) /2
 		shortest=min(mid-left[0], right[-1] - mid)
 		nlimit= self.nlimit_d/shortest
-		self.nlim_m=max(nlimit,self.nlimit_d)
+		self.nlim_m=max(nlimit,self.nlimit_d, self.nlim_b)
 		if self.n>self.nlim_m:
-			return Node( left, right, mid, self.lims, 1.5*self.nlimit_d)
+			return Node( left, right, mid, self.lims, 1.5*self.nlimit_d, self.nlim_b)
 		else: 
 			return self
 
@@ -57,11 +58,11 @@ class Leaf:
 
 
 class Node:
-	def __init__(self, left, right , mid, lims, nlim_d ) :
+	def __init__(self, left, right , mid, lims, nlim_d, nlim_b ) :
 		self.lims = lims
 		inf, sup = self.lims 
-		self.left = Leaf(left, (inf,mid), nlim_d=nlim_d ) 
-		self.right = Leaf(right, (mid,sup), nlim_d=nlim_d )
+		self.left = Leaf(left, (inf,mid), nlim_d=nlim_d, nlim_b=nlim_b ) 
+		self.right = Leaf(right, (mid,sup), nlim_d=nlim_d, nlim_b=nlim_b )
 		self.mid = mid 
 		self.n=len(left)+len(right)
 	def add(self,x):
