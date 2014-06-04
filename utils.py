@@ -33,7 +33,7 @@ import math
 import random
 import numpy as np
 def simplexAlea(d):
-	''' Uniform random variable on the standard simplex of dimension 2 '''
+	''' Uniform random variable on the standard simplex of dimension d-1 '''
 	def rand():
 		a= -np.log([ random.random() for x in range(d)]) 
 		s= sum(a)

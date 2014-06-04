@@ -83,8 +83,8 @@ class Hyperplane:
 		return( self.relPos(v) < 0 )
 
 
-
 class LocalHyperplane:
+	''' A local hyperpale represents a hyperplane function seed '''
 	def __init__(self, v, posFun, posLoc):
 		norm= sym.sqrt(v.dot(v))
 		self.normal=v/norm
@@ -239,18 +239,19 @@ class fullPolytope:
 				nf=Face()
 				verts=frozenset({})
 				for subfaces in f.childs: 
-				# We look if one of the subface of f intersect with H 
+				# We look if one of the subface of f intersected with H at the previous level 
 					if subfaces in collision.keys(): 
-						# if that is the case, f also intersects with H and the intersected face contains the intersected subface
+						# If that is the case, f also intersects with H. 
+						# The intersected face contains the intersected subface
 						colSubF= collision[subfaces] 
 						nf.childs.append(colSubF) 
 						# We collect the set of the vertices of the new face nf
 						verts=verts.union(colSubF)
-				if len(verts) > 0 : # If the new face contains at least one vertice (i.e. d)
+				if len(verts) > 0 : # If the new face contains at least one vertice (and thus at least d)
 					ncollision[s]=verts # Then the intersetion between H and f is non-empty
-					sublattice[verts]=nf # And nf is a face of lattice at level level.
-			I.lattice.append(sublattice)
-			collision=ncollision
+					sublattice[verts]=nf # And nf is a face of lattice at the current level.
+			I.lattice.append(sublattice) # we add the new lattice level
+			collision=ncollision # and move to the new set of collision
 		I.repairParents() # Until now we have neglected to add back the link between child and parents.
 		return I
 					

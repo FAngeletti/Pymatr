@@ -54,7 +54,7 @@ def llnPathLimit(PathMus):
 	normal = Matrix([ pos - mu0 for pos in PathMus[1:] ] )
 #	print("Normal : {}, mu0 : {}, PathMus {}".format(normal, mu0, PathMus) )
 	offset = - mu0
-	return VolIntersectionSimplex(normal,offset) # let's not talk about the magic black box here
+	return VolIntersectionSimplex(normal,offset) # See polytope.py if we really want to try to understand what is going on here
 
 from Algo.byPieces import *
 def llnLimit(mus,paths, Ppaths):

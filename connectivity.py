@@ -40,33 +40,48 @@ def preorder(Conn):
 
 
 def findExtrema(objs,prec):
+	''' Find the extremal elements of a sets of objs for the partial ordering prec'''
+	# We start with a trial decomposition [ potential extremal candidate , elements/ sucessors of the extremal candidate ]
 	times=[set({}),objs.copy() ]
+	# while there is still potential extremal elements
 	while (len(times[1])>0):
+		# we observe a new elements
 		present=times[1].pop()
+		# We then eliminate the sucessors of `present from both the list of candidate and the non-sucessor list 
 		for (k,time) in enumerate(times):
 			removal=set({})
 			for i in time:
 				if prec(present,i):
 					removal.add(i)
-			times[k]=time.difference(removal)				
+			times[k]=time.difference(removal)
+		# We then add the present element to the list of candidate. 
 		times[0].add(present)	
+		# Since we have removed the sucessors of `present from times[1], the invariant times[0]\inter\times[1]=ø is preserved.   
 	return times[0]
 				
 
 def sortPreorder(objs,prec):
-	levels=[]
-	print()
+	''' Sort the elements of `objs accordingly to the preorder `prec
+	 We sort the elements by separating then in level U_0, ... U_n
+	 We want to preserve the invariant that elements of U_k have a chain of exactly k sucessors.
+	 '''
+	Us=[] 
+	# The set V_0 is the whole sets
 	current = { frozenset(x) for x in objs}
 	step=0
 	while(len(current)>0 ):
 #		print("Current set at step {}: {}  \n".format(step, current) )
+		# We find the extremal elements of the current sets
 		news= findExtrema(current,prec)
 #		print("Extrema {} : {} \n".format(step, news))
-		levels.append(news)
+		# Add them to the current level
+		Us.append(news)
+		# And delete them to the current sets 
 		current= current.difference(news)
 		step+=1
+	# We then compute a arbitrary ordering compatible with the Us ordering
 	blocks=[]
-	for current in levels:
+	for current in Us:
 		for block in current:
 			blocks.append(block)
 #	print(blocks)
@@ -103,7 +118,7 @@ def stronglyConnected(Conn):
 		ec=next(iter(c))
 		return prec(eb,ec)
 #	print("blocks: {} ".format(blocks))
-	# sorting blocks
+	# Sorting the blocks
 	blocks= sortPreorder(blocks, cprec)
 	return blocks
 
@@ -140,6 +155,7 @@ def blockDims(comps):
 	return dims				
 
 def relabel(comps, E ):
+	''' Relabel the matrix E in function of the list of irreducible component'''
 	d=E.shape[0]
 	En=zeros(d,d)
 	permutation=permutationList(comps)
@@ -150,6 +166,7 @@ def relabel(comps, E ):
 
  
 def cloneBlocks( dims, E):
+	''' Extract the irreducible blocks from E'''
 	start=0
 	blocks=[]
 	for d in dims:
