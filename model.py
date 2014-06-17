@@ -25,7 +25,7 @@ class reduced:
 		shadow=Rd.shadowTransition(E,dims, dominants)
 		lshadow=Rd.shadowLimit(shadow)
 		self.E=Rd.reducedE(dominants,dims,eigens,lshadow)
-		self.A=Rd.reducedA(A,dominants,dims, eigens)
+		self.A=Rd.reducedA(A,dominants,dims, eigens, lshadow)
 		self.Qs = [ Rd.reducedStatistic(M,dominants, Bs, dims, eigens) for M in Qs ]
 
 

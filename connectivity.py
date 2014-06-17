@@ -85,7 +85,7 @@ def sortPreorder(objs,prec):
 		for block in current:
 			blocks.append(block)
 #	print(blocks)
-	return blocks
+	return (blocks,Us)
 
 
 def stronglyConnected(Conn):
@@ -119,8 +119,23 @@ def stronglyConnected(Conn):
 		return prec(eb,ec)
 #	print("blocks: {} ".format(blocks))
 	# Sorting the blocks
-	blocks= sortPreorder(blocks, cprec)
+	blocks, Us = sortPreorder(blocks, cprec)
 	return blocks
+
+def antecedentSets(Conn, blocks):
+	'''  Return the partial ordering of sets in functions of the antecedent level'''
+	# We use the preorder on Conn
+	prec=preorder(Conn)
+
+	# We want now to sort the strongly connected component
+	# prec induces a partial ordering  cprec of the strongly connected component
+	def cprec(b,c):
+		eb=next(iter(b))
+		ec=next(iter(c))
+		return prec(eb,ec)
+	# Sorting the blocks
+	blocks, Us = sortPreorder(blocks, cprec)
+	return Us
 
 
 

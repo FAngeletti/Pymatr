@@ -53,17 +53,19 @@ from Algo.utils import *
 
 
 
-def reducedA(A, dominants, dims, eigentriples):
+def reducedA(A, dominants, dims, eigentriples, lShadow):
 	''' Compute the reduced projection matrix '''
 	r=len(dominants)
+	sht = lShadow.T
+	A2 = sht * A * sht
 	Ar=zeros(r,r)
-	Ablocks=subBlocks(A, dims)
+	Ablocks=subBlocks(A2, dims)
 	for (i,entry) in zip(range(r),dominants):
 		for (j,exit) in zip(range(i,r),dominants):
 			right=eigentriples[entry][1]
 			left=eigentriples[exit][2]
 			Ab= Ablocks(entry,exit)
-			Ar[i,j]= sum( ewp( Ab,  right*left.T ) )
+			Ar[i,j]= sum( ewp( Ab, right*left.T) )
 	return Ar
 
 
