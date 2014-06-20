@@ -4,8 +4,8 @@
 
 '''
 
-import Algo.printing as pr
-from Algo.utils import *
+import printing as pr
+from utils import *
 def computeConn(E):
 	''' Compute the connection matrix Conn[i,j]>0 iff there is path from i to j in the graph
 associated to E'''

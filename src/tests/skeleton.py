@@ -19,7 +19,7 @@ import random
 import math
 def Gs(i,j):
 	return lambda : random.gauss(Qs[0][i,j], math.sqrt( Qs[1][i,j]) ) 
-import Algo.Synthesis as Syn
+import Synthesis as Syn
 
 Gen =
 
@@ -29,7 +29,7 @@ d=E0.shape[0]
 A0 = ones((d,d))
 
 # Jordan-Frobenius decomposition
-from Algo.connectivity import *
+from connectivity import *
 
 Conn=computeConn(E0)
 comps=relabelling(E0)
@@ -40,13 +40,13 @@ Bs = cloneBlocks(dims, E )
 
 
 # Eigentriples computation
-from Algo.eigentriples import *
+from eigentriples import *
 eigens = eigentriples(Bs)
 dEigen= dominantEigenvalue(eigens)
 dominants =findDominants(eigens)
 
 # Reduced statistics computation
-from Algo.reduction import *
+from reduction import *
 shadow=shadowTransition(E,dims, dominants)
 lshadow=shadowLimit(shadow)
 Er= reducedE(dominants,dims,eigens,lshadow)
@@ -55,7 +55,7 @@ Ar=reducedA(A,dominants,dims, eigens)
 
 
 # Limits laws computations
-from Algo.limits import *
+from limits import *
 paths=maxPaths(Er)
 probP = probPaths(Ar,Er,paths)
 

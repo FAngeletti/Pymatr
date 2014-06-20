@@ -45,7 +45,7 @@ def probPaths(A,E, paths):
 
 
 # LLN limits
-from Algo.polytope import VolIntersectionSimplex 
+from polytope import VolIntersectionSimplex 
 def llnPathLimit(PathMus):
 	''' Limit laws for the law of large number on a given path (exact )  '''
 	mu0= PathMus[0]
@@ -56,7 +56,7 @@ def llnPathLimit(PathMus):
 	offset = - mu0
 	return VolIntersectionSimplex(normal,offset) # See polytope.py if we really want to try to understand what is going on here
 
-from Algo.byPieces import *
+from byPieces import *
 def llnLimit(mus,paths, Ppaths):
 	''' Limit laws for the law of large number on all paths (exact )  '''
 #	print ("Paths: {}".format(paths))
@@ -73,7 +73,7 @@ def llnLimit(mus,paths, Ppaths):
 
 
 # CLT limits
-from Algo.utils import *
+from utils import *
 def tclPathLimit(sigma2s):
 	''' Limit law for the central theorem on a given path associated to variance sigma2s (numerical )'''
 	def law(x):

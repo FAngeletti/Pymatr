@@ -1,0 +1,166 @@
+
+% Global formatting macros
+\newcommand{\Eqref}[1]{Eq.~(\ref{#1})}
+\newcommand{\Comment}[1]{}
+\newcommand{\?}{{\color{red}?}}
+
+% Random variables 
+
+%Set theory
+\newcommand{\card}{\mathrm {card}}
+\newcommand{\Partition}{\mathcal{P}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\chfun}{\mathrm{\chi} }
+
+%Linear space
+\newcommand{\Ran}{\mathop{\mathrm{Range}}}
+
+%Arithmetic
+\newcommand{\floor}[1]{\lfloor#1\rfloor}
+%Vector space
+%\renewcommand{\vec}[1]{\underline{#1}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\mId}{\mathrm I}
+
+%Vector as list
+\newcommand{\len}[1]{|#1|}
+
+
+% Functionnal analysis
+\newcommand{\supp}{\mathop{\mathrm{supp}}}
+
+
+%Geometry
+\newcommand{\Sp}{ \mathcal M}
+\newcommand{\Vol}{ \mathrm{Vol}}
+
+
+% Esperance and statistical quantity
+\newcommand{\Esp}[1]{\left<#1\right>}
+\newcommand{\Cov}[1]{\mathrm{Cov}_{#1} }
+\newcommand{\Var}[1]{\fun{Var}\left[#1 \right]}
+
+
+%Limits
+\newcommand{\conv}[1]{\underset{ #1 \rightarrow +\infty }{\rightarrow} }
+\newcommand{\limInf}[1]{\lim_{#1 \rightarrow +\infty}}
+
+% Probability theory notations
+\newcommand{\Prob}{P}
+\newcommand{\iid}{\mathrm{i.i.d.}}
+	%% Convergence type
+\newcommand{\as}[1]{\overset{\text{a.s}}{#1}}
+	\newcommand{\Dist}[1]{\overset{\mathcal{D}}{#1}}
+	\newcommand{\Distas}[1]{\overset{a.s.}{#1}}
+	\newcommand{\convD}[1]{\Dist{\conv{#1}} }
+	\newcommand{\convas}[1]{\Distas{\conv{#1}} }
+
+	%%Laws
+	\newcommand{\lU}{\mathcal U}
+
+
+% Expression shortcut
+\newcommand{\fracpow}[3]{\p{ \frac{#1}{#2}}^{#3}}
+\newcommand{\p}[1]{\left(#1\right)} 
+\newcommand{\repeated}[2]{ \underbrace{ #1,\dots,#1}_{ #2 \text{ times} } }
+\newcommand{\fracLf}[2] { \frac{\Lf\p{#1}}{\Lf\p{#2}} }
+\newcommand{\fLf}[1] { \fracLf{#1}{\mE^N} }
+
+
+
+% RVMR standard notations
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\mP}{\mathcal{P}}
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\Lf}{\mathcal{L}}
+\newcommand{\mQ}[1]{M(#1)}
+
+
+% RVMR standard notation for the exemple
+\newcommand{\ex}[1]{#1}
+\newcommand{\mEx}{ \ex\mE}
+\newcommand{\mAx}{ \ex\mA}
+\newcommand{\mQx}[1]{\ex{M}\p{#1}}
+
+
+
+%Graph theory
+\newcommand{\gE}{\mathrm G}
+\newcommand{\gtr}{{\mathrm{g}}}
+\newcommand{\Conn}{\Pi}
+
+
+% Article specific notations
+	%% Sum 
+	\renewcommand{\S}{S}
+	%% Immersion
+	\newcommand{\Imm}[1]{#1^{\circ}}
+	
+	%%Jordan Decomposition
+	\newcommand{\imJ}{\Imm{J}}
+
+	%%Transition fraction
+	\newcommand{\pnu}[1]{\nu_{#1}}
+
+	%%Class decomposition
+	\newcommand{\pC}{\mathcal C}
+	\newcommand{\pfC}{\overline{\pC}}
+	\newcommand{\pdC}{\hat{\pC}}
+	\newcommand{\nc}{p}
+	\newcommand{\sB}[1]{\Xi_{#1}}
+	\newcommand{\sC}[1]{\Xi_{#1}}
+	\newcommand{\sdC}[1]{\hat{\Xi}_{#1}}
+	\newcommand{\mB}[1]{\mathcal B(#1)}
+	\newcommand{\mbP}[1]{\mP^{|#1} }
+	\newcommand{\imB}[1]{\Imm{\mathcal B}\p{#1}}
+
+
+	\newcommand{\fEig}[1]{\rho(#1)}
+	\newcommand{\vEig}[1]{\eta(#1)}
+
+	%%Irreducible subchains
+	\newcommand{\sPth}[1]{\Gamma^{|#1}}
+	\newcommand{\vStat}[1]{ p_{\mathrm{st}}(#1) }
+	\newcommand{\bnu}[1]{\nu(#1)}
+	\newcommand{\Sq}{c}
+
+	%conditionned quantity
+	\newcommand{\cX}[1]{X^{[#1]}}
+
+	%%Structure chain
+	% \Delta : structure chain
+	\newcommand{\lmax}{{l_{\max}}}
+
+	%t_c upper bound:
+	\newcommand{\NcUpB}{\p{\ln N}^2}
+	\newcommand{\tcUpB}{ \frac{\NcUpB}{N}}
+	\newcommand{\tcUpBl}{ \NcUpB/N }
+
+	%%Reduced model
+	\newcommand{\redc}[2][]{#2^{\star#1}}
+	\newcommand{\mEr}[1][]{\redc[#1]{\mE}}
+	\newcommand{\mPr}[1][]{\redc[#1]{\mP}}
+	\newcommand{\mAr}[1][]{\redc[#1]{\mA}}
+	\newcommand{\Lfr}[1][]{\redc[#1]{\Lf}}
+	\newcommand{\mRr}[1][]{\redc[#1]{\mR}}
+	\newcommand{\pthr}[1][]{\redc[#1]{\Gamma}}
+        \newcommand{\pCr}[1][]{\redc[#1]{\pC}}
+
+	%%Shadow transition
+	\newcommand{\mS}{\theta}
+	\newcommand{\mSl}{\Theta}
+
+	%%Periodic chain
+	\newcommand{\PGamma}[2]{\sPth{#1,#2}}
+	\newcommand{\sPer}[1]{\Theta_{#1}}
+	\newcommand{\Pnu}[1]{\nu\p{#1}}
+
+	\newcommand{\fPEig}[1]{\rho(#1)}
+	\newcommand{\vPEig}[1]{\eta(#1)}
+
+	\newcommand{\fPtEig}[1]{\rho(#1)}
+	\newcommand{\vPtEig}[1]{\eta(#1)}
+

@@ -49,7 +49,7 @@ def reducedE(dominants, dims, eigentriples, lShadow):
 
 import sympy as sym
 from sympy.matrices import *
-from Algo.utils import *
+from utils import *
 
 
 

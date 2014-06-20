@@ -1,7 +1,7 @@
 
 
 import sys
-sys.path.append('../..')
+sys.path.append('..')
 
 import sympy as sym
 from sympy.matrices import *
@@ -22,7 +22,7 @@ Qs =[  Matrix( [ [ -5  ,0 ] ,  [ 0 , 5] ] )
 d=E.shape[0]
 A = ones((d,d))
 
-import Algo.model as Mod
+import model as Mod
 
 
 red= Mod.reduced(A,E, Qs )  
@@ -31,9 +31,9 @@ import random
 import math
 def Gs(i,j):
 	return lambda : random.gauss( Qs[0][i,j], math.sqrt(Qs[1][i,j]) )  
-import Algo.Synthesis as Syn
+import Synthesis as Syn
 
-from Algo.utils import numerical
+from utils import numerical
 L= red.dEigen
 nsyn=100
 Gen = Syn.MatrixRngOpt(numerical(A),numerical(E/L), Gs, nsyn)
@@ -44,7 +44,7 @@ def average():
 #	print(" \n sum {},  average: {}\n".format(r, av) )
 	return av
 
-import Algo.Histogram as H
+import Histogram as H
 nsample=1000
 H.plot(nsample, average)
 import matplotlib.pyplot as plt

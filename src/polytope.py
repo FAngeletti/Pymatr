@@ -4,7 +4,7 @@ import numpy as np
 import sympy as sym
 from sympy.matrices import *
 #import sympy.matrices as Mat
-from Algo.byPieces import *
+from byPieces import *
 
 
 

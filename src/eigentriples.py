@@ -39,10 +39,13 @@ def eigenpairS(M):
 
 
 #classical algorithm to compute the eigen pair + left eigeinvector
-def eigentriple(M,eps=1e-10):
-	''' Compute the dominant eigenvalue and associated right and left eigenvector for matrix with numerical error eps'''
-	(l , right) =eigenpairS(M)
-	(l, left) = eigenpairS(M.T)
+def eigentriple(M,eps=1e-10, eigenpair=eigenpairS):
+	''' Compute the dominant eigenvalue and associated right and left eigenvector for matrix with numerical error eps
+	Currently, try to do exact computation. Fail to do so in general situation, as expected. Change the eigenpair default argument
+	to use saner numerical methods.
+	'''
+	(l , right) =eigenpair(M)
+	(l, left) = eigenpair(M.T)
 	#print(left)
 	n = left.dot(right)
 	left=left/n

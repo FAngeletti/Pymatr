@@ -120,7 +120,7 @@ class Polynomial:
 			s=s*x +c
 		return s
 	
-				
+'''				
 c = Polynomial([1] )
 X= Polynomial([0,1])
 print (c)
@@ -138,5 +138,5 @@ v2=numpy.array([5,7])
 P3= v2*(X*X-c) /2
 print(P3[0])
 
-	
+'''	
 				  

@@ -1,5 +1,5 @@
 import random
-import Algo.Analysis
+import Analysis
 
 def mesh(n,f):
 	for i in range(n):
