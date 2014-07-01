@@ -17,9 +17,10 @@ S(X)  = x_1 + x_2 ... x_n
 ```
 
 The structure of this library follow closely the argumentation developped in the corresponding article.
-It is therefore may be useful for interested reader to have a look at the illustration directory.
+It may therefore be useful for interested readers to have a look at the illustration directory.
 In this directory, the illustration.py is an heavily commented python version of the relevant part 
-of article (generated from illustration.hyd, more about this later).
+of article whereas gen_illustration.py can be used to generate new random examples
+(both generated from illustration.hyd, see [Hydra](https://github.com/FAngeletti/Hydra) ) .
 
 For more direct use of the library, the tests avaible inside the tests directory
 are quite shorter and may be more readable (at least if they were commented, it might be the case).
