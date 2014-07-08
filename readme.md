@@ -27,6 +27,13 @@ are quite shorter and may be more readable (at least if they were commented, it 
 Note that this library relies on the sympy, numpy and matplotlib libraries. 
 
 
+# Installation
+
+The library can be installed for local user by using
+```
+ python setup.py install --user
+```
+
 
 # Script-by-script description
 
@@ -67,7 +74,7 @@ be used directly.
 ### polytope.py
 This module implements the volume computation for general polytope in arbitrary dimension. 
 The limits module use a more specific algorithm computating the volume of intersection
-of polytope and hyperplane parameterizd by a polynomial. This is part has by far the worst theoretical
+of polytope and hyperplane parameterizd by a polynomial. This part has by far the worst theoretical
 complexity since it is factorial in the maximal length of structure chain l_max
 ( partially because a d dimensional hypercube is divided in d! simplices by the decomposition
 algorithm currently used ). More efficient algorithm could be implemented (with a lot of free time).

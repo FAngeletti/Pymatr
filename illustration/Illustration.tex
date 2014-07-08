@@ -19,12 +19,12 @@ As an example, we consider the following structure matrix $\mEx$ and projection 
 %
 \begin{equation}
 \mEx = \begin{pmatrix}
-\frac{1}{2}& 1& 0& 1& 0& 0\\[0.1cm]
-0& \frac{2}{5}& \frac{3}{5}& 0& 0& 2\\[0.1cm]
-0& \frac{1}{4}& \frac{3}{4}& 0& 0& 0\\[0.1cm]
-0& 0& 0& \frac{1}{2}& 3& 0\\[0.1cm]
-0& 0& 0& 0& \frac{1}{2}& \frac{1}{2}\\[0.1cm]
-0& 0& 0& 0& \frac{3}{4}& \frac{1}{4}
+\frac{1}{2}& 0& 0& \frac{1}{2}& 0& 0\\[0.1cm]
+0& \frac{2}{3}& 0& 0& \frac{1}{3}& 0\\[0.1cm]
+3& 0& \frac{1}{2}& 0& 0& 0\\[0.1cm]
+\frac{3}{5}& 0& 0& \frac{2}{5}& 0& 0\\[0.1cm]
+0& \frac{2}{5}& 3& 0& \frac{3}{5}& 0\\[0.1cm]
+0& 0& 1& 0& 3& \frac{1}{2}
 \end{pmatrix}, \quad \mAx_{i,j} = 1   
 \end{equation}
 
@@ -42,12 +42,12 @@ Applying this algorithm to $\mEx$ and replacing strictly positive coefficients b
 \begin{equation}
 %
 \ex\Conn = \begin{pmatrix}
-+& +& +& +& +& +\\
-0& +& +& 0& +& +\\
-0& +& +& 0& +& +\\
-0& 0& 0& +& +& +\\
-0& 0& 0& 0& +& +\\
-0& 0& 0& 0& +& +
++& 0& 0& +& 0& 0\\
++& +& +& +& +& 0\\
++& 0& +& +& 0& 0\\
++& 0& 0& +& 0& 0\\
++& +& +& +& +& 0\\
++& +& +& +& +& +
 \end{pmatrix} 
 \end{equation}
 Once the matrix $\Conn$ has been computed, the next step is to determine a relabelling $i \mapsto i'$
@@ -61,7 +61,7 @@ the same class if and only if $R(i)=R(j)$:
 Applying this algorithm to $\Conn$ yields
 % 
 \begin{equation} %to do correct indices
-\{ \ex{\sC{c}} \} =  \Set{\Set{0},\Set{1,2},\Set{3},\Set{4,5}} 
+\{ \ex{\sC{c}} \} =  \Set{\Set{5},\Set{1,4},\Set{2},\Set{0,3}} 
 \end{equation}
 
 Finally,  we need to find a ordering $c \mapsto c'$
@@ -101,18 +101,18 @@ There may be many total orderings of the indices $i$ compatible with this preord
 orderings are equivalent for our purpose. In our example, we have
 %% 
 \begin{equation} \begin{aligned}
- U_{0} &= \Set{\Set{0}} \\  U_{1} &= \Set{\Set{1,2},\Set{3}} \\  U_{2} &= \Set{\Set{4,5}} \\ 
+ U_{0} &= \Set{\Set{5}} \\  U_{1} &= \Set{\Set{1,4}} \\  U_{2} &= \Set{\Set{2}} \\  U_{3} &= \Set{\Set{0,3}} \\ 
 \end{aligned} \end{equation}
 %
 Once a specific relabelling has been found, we obtain the Perron-Frobenius form of the matrix $\mEx$
 \begin{equation}
 \mEx = \begin{pmatrix}
-\frac{1}{2}& 1& 0& 1& 0& 0\\[0.1cm]
-0& \frac{2}{5}& \frac{3}{5}& 0& 0& 2\\[0.1cm]
-0& \frac{1}{4}& \frac{3}{4}& 0& 0& 0\\[0.1cm]
+\frac{1}{2}& 0& 3& 1& 0& 0\\[0.1cm]
+0& \frac{2}{3}& \frac{1}{3}& 0& 0& 0\\[0.1cm]
+0& \frac{2}{5}& \frac{3}{5}& 3& 0& 0\\[0.1cm]
 0& 0& 0& \frac{1}{2}& 3& 0\\[0.1cm]
 0& 0& 0& 0& \frac{1}{2}& \frac{1}{2}\\[0.1cm]
-0& 0& 0& 0& \frac{3}{4}& \frac{1}{4}
+0& 0& 0& 0& \frac{3}{5}& \frac{2}{5}
 \end{pmatrix}
 \end{equation}
 leading to the following $4$ blocks $\ex{\mB{c}}$: % to do
@@ -120,13 +120,13 @@ leading to the following $4$ blocks $\ex{\mB{c}}$: % to do
  \mB{1} = \begin{pmatrix}
 \frac{1}{2}
 \end{pmatrix},\;  \mB{2} = \begin{pmatrix}
-\frac{2}{5}& \frac{3}{5}\\
-\frac{1}{4}& \frac{3}{4}
+\frac{2}{3}& \frac{1}{3}\\
+\frac{2}{5}& \frac{3}{5}
 \end{pmatrix},\;  \mB{3} = \begin{pmatrix}
 \frac{1}{2}
 \end{pmatrix},\;  \mB{4} = \begin{pmatrix}
 \frac{1}{2}& \frac{1}{2}\\
-\frac{3}{4}& \frac{1}{4}
+\frac{3}{5}& \frac{2}{5}
 \end{pmatrix},\; 
 \end{equation}
 
@@ -160,8 +160,8 @@ each triplet and obtain
 1\\
 1
 \end{pmatrix}, \quad& \fEig{1} = \begin{pmatrix}
-\frac{5}{17}\\
-\frac{12}{17}
+\frac{6}{11}\\
+\frac{5}{11}
 \end{pmatrix} \\  \lambda_{2} = \frac{1}{2},  \quad& \vEig{2} = \begin{pmatrix}
 1
 \end{pmatrix}, \quad& \fEig{2} = \begin{pmatrix}
@@ -170,8 +170,8 @@ each triplet and obtain
 1\\
 1
 \end{pmatrix}, \quad& \fEig{3} = \begin{pmatrix}
-\frac{3}{5}\\
-\frac{2}{5}
+\frac{6}{11}\\
+\frac{5}{11}
 \end{pmatrix} \\ 
 \end{aligned}\end{equation} 
 
@@ -197,9 +197,9 @@ where $\theta$ is defined in \Eqref{eq:shw}.
 In our example,
 \begin{equation}
 \ex\mSl = \begin{pmatrix}
-2& 2& 0& 4& 12& 4\\[0.1cm]
-0& 1& 0& 0& 0& 2\\[0.1cm]
-0& 0& 1& 0& 0& 0\\[0.1cm]
+2& 0& 6& 40& 120& 0\\[0.1cm]
+0& 1& 0& 0& 0& 0\\[0.1cm]
+0& 0& 1& 6& 18& 0\\[0.1cm]
 0& 0& 0& 2& 6& 0\\[0.1cm]
 0& 0& 0& 0& 1& 0\\[0.1cm]
 0& 0& 0& 0& 0& 1
@@ -213,10 +213,10 @@ Here, we have for $\ex\mAr$ and $\ex\mEr$
 %
 \begin{equation}
 \ex\mAr= \begin{pmatrix}
-\frac{108}{17}& \frac{54}{17}\\
-0& \frac{284}{5}
+\frac{1066}{11}& \frac{82}{11}\\
+0& \frac{22750}{11}
 \end{pmatrix} ,\quad  \ex\mEr = \begin{pmatrix}
-1& \frac{4}{5}\\[0.1cm]
+1& \frac{108}{11}\\[0.1cm]
 0& 1
 \end{pmatrix}
 \end{equation}
@@ -243,7 +243,7 @@ $\iid$ exponential random variables with the same shape parameter and then norma
 resulting vector. Fig.~\ref{fig:clt} illustrates the limit law for our example if we choose
 the following variance for the reduced model 
 \begin{equation}
-\sigma^{2}_{ii} = \p{\frac{70}{51}}.
+\sigma^{2}_{ii} = \p{\frac{28}{143}}.
 \end{equation}
 %
 \begin{figure}
@@ -309,15 +309,15 @@ Consequently, on the interval $(s^{\wedge}_t,s^{\wedge}_{t+1})$, $\Vol(K_\pC (s)
 Hence, the limit distribution for the law of large numbers is a piecewise polynomial.
 Moreover, it is possible to use symbolic computation to compute exactly the limit distribution from the means $\mu_{i,i}$. For instance, if we arbitrarily choose 
 \begin{equation}
-\mu_{ii} = \p{\frac{684}{221}}.
+\mu_{ii} = \p{\frac{25}{143}}.
 \end{equation}
 for our example, we have
 %
 \begin{equation}
  p \p{ \frac{S(\vec{X})}{N} = s } = \begin{cases}
- 0 & s \in (-\infty,99/170)\\
-\frac{2210}{5553} & s \in [99/170,684/221)\\
- 0 & s \in [684/221, +\infty )
+ 0 & s \in (-\infty,9/253)\\
+\frac{3289}{458} & s \in [9/253,25/143)\\
+ 0 & s \in [25/143, +\infty )
  \end{cases} 
 \end{equation}
 %

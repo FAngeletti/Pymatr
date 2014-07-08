@@ -4,8 +4,8 @@
 
 '''
 
-import printing as pr
-from utils import *
+import Pymatr.printing as pr
+from Pymatr.utils import *
 def computeConn(E):
 	''' Compute the connection matrix Conn[i,j]>0 iff there is path from i to j in the graph
 associated to E'''

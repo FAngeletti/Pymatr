@@ -1,5 +1,5 @@
 import random
-import Analysis
+import Pymatr.analysis
 
 def mesh(n,f):
 	for i in range(n):

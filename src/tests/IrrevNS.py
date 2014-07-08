@@ -1,8 +1,4 @@
 
-
-import sys
-sys.path.append('..)
-
 import sympy as sym
 from sympy.matrices import *
 import matplotlib.pyplot as plt
@@ -21,7 +17,7 @@ Qs =[  Matrix( [ [ -1  , -3, 0,  0 ] , [-2, - 5, 0 ,0] ,  [ 0,  0,   5 , 3], [ 0
 d=E.shape[0]
 A = ones((d,d))
 
-import model as Mod
+import Pymatr.model as Mod
 
 
 red= Mod.reduced(A,E, Qs )  
@@ -30,9 +26,9 @@ import random
 import math
 def Gs(i,j):
 	return lambda : random.gauss( Qs[0][i,j], 1  )  
-import Synthesis as Syn
+import Pymatr.synthesis as Syn
 
-from utils import numerical
+from Pymatr.utils import numerical
 L= red.dEigen
 nsyn=100
 Gen = Syn.MatrixRngOpt(numerical(A),numerical(E/L), Gs, nsyn)
@@ -48,7 +44,7 @@ import byPieces as Bp
 Bp.plot(lln)
 
 
-import Histogram as H
+import Pymatr.histogram as H
 nsample=1000
 H.plot(nsample, average)
 import matplotlib.pyplot as plt

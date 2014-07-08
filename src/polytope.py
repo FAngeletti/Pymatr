@@ -4,7 +4,7 @@ import numpy as np
 import sympy as sym
 from sympy.matrices import *
 #import sympy.matrices as Mat
-from byPieces import *
+from Pymatr.byPieces import *
 
 
 
@@ -144,7 +144,7 @@ class Face:
 
 
 class fullPolytope:
-	''' A full polytope is composed of a collection of vertices and its full simplex chain'''
+	''' A full polytope is composed of a collection of vertices and its full face lattice'''
 	def __init__(self,dim):
 		self.vertices={}
 		self.lattice=[]

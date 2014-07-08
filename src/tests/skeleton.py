@@ -19,9 +19,8 @@ import random
 import math
 def Gs(i,j):
 	return lambda : random.gauss(Qs[0][i,j], math.sqrt( Qs[1][i,j]) ) 
-import Synthesis as Syn
+import Pymatr.synthesis as Syn
 
-Gen =
 
 (E0, Qs)  = generation.system(12, 20, sBmx=2)
 
@@ -29,7 +28,7 @@ d=E0.shape[0]
 A0 = ones((d,d))
 
 # Jordan-Frobenius decomposition
-from connectivity import *
+from Pymatr.connectivity import *
 
 Conn=computeConn(E0)
 comps=relabelling(E0)
@@ -40,13 +39,13 @@ Bs = cloneBlocks(dims, E )
 
 
 # Eigentriples computation
-from eigentriples import *
+from Pymatr.eigentriples import *
 eigens = eigentriples(Bs)
 dEigen= dominantEigenvalue(eigens)
 dominants =findDominants(eigens)
 
 # Reduced statistics computation
-from reduction import *
+from Pymatr.reduction import *
 shadow=shadowTransition(E,dims, dominants)
 lshadow=shadowLimit(shadow)
 Er= reducedE(dominants,dims,eigens,lshadow)
@@ -55,7 +54,7 @@ Ar=reducedA(A,dominants,dims, eigens)
 
 
 # Limits laws computations
-from limits import *
+from Pymatr.limits import *
 paths=maxPaths(Er)
 probP = probPaths(Ar,Er,paths)
 

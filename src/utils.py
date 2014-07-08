@@ -4,12 +4,12 @@ import numpy as num
 
 from sympy.matrices import *
 
-def ewp(A,B):
+def ewp(A,B, zeros_fun=zeros):
 	(m,n) = A.shape
 	(m2,n2)= B.shape
 	if A.shape != B.shape:
 		raise IncompatibleShape
-	R= zeros(m,n)
+	R= zeros_fun(m,n)
 	for i in range(0,m):
 		for j in range(0,n):
 			R[i,j]=A[i,j]*B[i,j]	

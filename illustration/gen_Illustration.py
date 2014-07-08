@@ -46,13 +46,10 @@ __latex__(r'''\documentclass{article}
 \input{notations4}
 
 \begin{document} ''')
-import sys
-sys.path.append("../src")
-
 import sympy as sym
 from sympy.matrices import *
 sym.init_printing(use_unicode=True)
-import printing as pr
+import Pymatr.printing as pr
 import random
 #seed= 0.6996544959643928
 seed=random.seed() 
@@ -62,7 +59,7 @@ __pynclusion__(seed)
 __latex__(r'''
 As an example, we consider the following structure matrix $\mEx$ and projection matrix $\mAx$
 ''')
-import generation as Gen
+import Pymatr.generation as Gen
 one= sym.Rational(1,1)
 half= sym.Rational(1,2)
 third= sym.Rational(1,3)
@@ -85,12 +82,12 @@ def GsCLT(i,j):
 
 
 
-import Synthesis as Syn
+import Pymatr.synthesis as Syn
 nsyn = 500 
 nhist=1000
 
 
-from utils import numerical
+from Pymatr.utils import numerical
 E0n= numerical(E0)
 A0n= numerical(A0) 
 GenLLN = Syn.MatrixRngOpt(A0n, E0n, GsLLN, nsyn)   
@@ -115,7 +112,7 @@ Then, there is a path from $i$ to $j$ if and only if $ \Conn_{ij} >0$.
 Applying this algorithm to $\mEx$ and replacing strictly positive coefficients by a symbol $"+"$ yields 
 \begin{equation}
 ''')
-import connectivity as Cn
+import Pymatr.connectivity as Cn
 Conn=Cn.computeConn(E0) 
 __latex__(r'''%
 \ex\Conn = ''')
@@ -236,7 +233,7 @@ For instance, in our example, the diagonal blocks of $\ex\mE$ have been
 constructed to be rational multiples of a stochastic matrix. In this very specific case, it is possible to compute exactly
 each triplet and obtain
 ''')
-import  eigentriples as Ei
+import  Pymatr.eigentriples as Ei
 eigens = Ei.eigentriples(Bs) 
 __latex__(r'''%
 \begin{equation} \begin{aligned}
@@ -269,7 +266,7 @@ __latex__(r'''
 dEigen= Ei.dominantEigenvalue(eigens)
 dominants =Ei.findDominants(eigens)
 
-import reduction as Red
+import Pymatr.reduction as Red
 shadow=Red.shadowTransition(E,dims, dominants)
 lshadow=Red.shadowLimit(shadow) 
 __latex__(r'''%
@@ -316,7 +313,7 @@ __latex__(r'''
 \end{equation}
 We can also determine the path of maximal length, which is unique here, and its probability,
 ''')
-import limits as Lim
+import Pymatr.limits as Lim
 paths=Lim.maxPaths(Er)
 probP = Lim.probPaths(Ar,Er,paths) 
 __latex__(r'''
@@ -368,12 +365,12 @@ __latex__(r'''.
 \end{equation}
 ''')
 import matplotlib.pyplot as plt
-import plot as Pl
+import Pymatr.plot as Pl
 plt.figure(figsize=Pl.fig_center )
 ptcl = tclLaw(xtcl)
 plt.plot(xtcl,ptcl, "k--") 
-#import HistogramS as H
-import Histogram as H
+#import Pymatr.HistogramS as H
+import Pymatr.Histogram as H
 import math
 
 def sample():
@@ -473,12 +470,12 @@ __latex__(r'''
 \end{equation}
 ''')
 plt.figure(figsize=Pl.fig_center )
-import byPieces as Bp 
+import Pymatr.byPieces as Bp 
 
 Pl.limitTicks(5,4)
 Bp.plot(llnLaw, plot=lambda x,y : plt.plot(x,y,"k--"))  
 
-import Histogram as H
+import Pymatr.Histogram as H
 import math
 def sample():
 	s= sum(GenLLN())
